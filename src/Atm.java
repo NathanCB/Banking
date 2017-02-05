@@ -68,12 +68,13 @@ public class Atm {
                 } else {
                     System.out.println("Please open an account");
                 }
+
                 break;
 
             case 4://withdraw money
                 selectedInput = 4;
 
-                withdrawMoney();//
+                withdrawMoney();
                 break;
 
             case 5:
@@ -98,23 +99,19 @@ public class Atm {
     }
 
     public void withdrawMoney() {
-        checkBalance();
+        //checkBalance();
         System.out.println("Enter amount to withdraw");
         Double cashOut = Atm.scanner.nextDouble();
-
-        if (balance > 100) {
-            accounts.put(name, accounts.get(name) - cashOut);
+        Double newBalance = accounts.get(name) - cashOut;
+        if (balance > 100 && balance - cashOut >= balance) {
+            accounts.put(name,newBalance);
             System.out.println("Please remove your cash. Thank You!");
-
-
         }
         else {
             System.out.println("You need to have more than 100 in your account to withdraw money.");
 
         }
         chooseOption();
-
-
     }
 
     public void checkBalance(){

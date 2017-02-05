@@ -5,9 +5,9 @@ public class Main {
 
     public static void main(String[] args){
         Atm atm = new Atm();
-        atm.loadAccount();
-        atm.inputName();
-        atm.isAccountFoundAndValid();
+        atm.loadAccount();// loads the preexisting hashmap values
+        atm.inputName(); // prompts for name and stores it for validating
+        atm.isAccountFoundAndValid();//validates name
         if(atm.isAccountFoundAndValid()){
             atm.chooseOption();
         }
