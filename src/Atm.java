@@ -8,11 +8,10 @@ public class Atm {
     Double deposit;
     HashMap<String, Double> accounts = new HashMap();
 
-
-    public void loadAccount(){
-        accounts.put ("Alice",2050.89);
-        accounts.put ("Nathan",100.99);
-        accounts.put ("Sarah",300.02);
+    public void loadAccount() {
+        accounts.put("Alice", 2050.89);
+        accounts.put("Nathan", 100.99);
+        accounts.put("Sarah", 300.02);
     }
 
     static Scanner scanner = new Scanner(System.in);
@@ -28,6 +27,17 @@ public class Atm {
 
     public boolean isAccountFoundAndValid() {
         return accounts.containsKey(name);
+    }
+
+    public void openFirstAccount() {
+        System.out.println("To open a new account enter y \npress any other key to exit");
+        String c = Atm.scanner.nextLine();
+        if (c.contentEquals("y")) {
+            createAccount();
+        } else {
+            System.out.println("End of transaction");
+            inputName();
+        }
     }
 
     public void chooseOption() {
@@ -58,14 +68,12 @@ public class Atm {
                 } else {
                     System.out.println("Please open an account");
                 }
-
                 break;
 
-            case 4:
+            case 4://withdraw money
                 selectedInput = 4;
-                System.out.println("Withdraw cash.");
-                withdrawMoney();
 
+                withdrawMoney();//
                 break;
 
             case 5:
@@ -81,7 +89,6 @@ public class Atm {
         accounts.remove(name);
     }
 
-
     private void createAccount() {
         System.out.println("Enter amount to deposit.");
         deposit = Atm.scanner.nextDouble();
@@ -91,13 +98,29 @@ public class Atm {
     }
 
     public void withdrawMoney() {
-        int cashOut = Atm.scanner.nextInt();
-        if (cashOut < 100) {
+        checkBalance();
+        System.out.println("Enter amount to withdraw");
+        Double cashOut = Atm.scanner.nextDouble();
+
+        if (balance > 100) {
+            accounts.put(name, accounts.get(name) - cashOut);
             System.out.println("Please remove your cash. Thank You!");
-        } else {
-            System.out.println("You need to have more than 100 in your account to withdraw money.");
+
+
         }
+        else {
+            System.out.println("You need to have more than 100 in your account to withdraw money.");
+
+        }
+        chooseOption();
 
 
     }
+
+    public void checkBalance(){
+        Double balance = accounts.get(name);
+
+    }
+
+
 }

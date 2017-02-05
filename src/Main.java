@@ -8,12 +8,13 @@ public class Main {
         atm.loadAccount();
         atm.inputName();
         atm.isAccountFoundAndValid();
-
         if(atm.isAccountFoundAndValid()){
             atm.chooseOption();
         }
-        else {System.out.println("Would you like to open a new account?");
+        else {
+            atm.openFirstAccount();
         }
+
 
 
 
