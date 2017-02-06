@@ -1,11 +1,8 @@
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class Atm {
-    String name;
-    Double deposit;
-    String y;
+    String name;  // current user
     HashMap<String, Double> accounts = new HashMap();
 
     public void loadAccount() {
@@ -15,99 +12,50 @@ public class Atm {
     }
 
     static Scanner scanner = new Scanner(System.in);
+    static Scanner scanForString = new Scanner(System.in);
+//    static Scanner scanForDouble = new Scanner(System.in);
 
     public void inputName() {
-        name = "";
+        System.out.println("Enter Your name: ");
+        name = scanForString.nextLine();
         while (name.isEmpty()) {
-            System.out.println("Please enter a name.");
+            System.out.println("Please enter a name if you haven't.");
             name = Atm.scanner.nextLine();
         }
         System.out.println("Hi " + name);
     }
 
-    public boolean isAccountFoundAndValid() {
+    public boolean isAccountValid() {
         return accounts.containsKey(name);
     }
 
-    public void openFirstAccount() {
-        System.out.println("To open a new account enter y \npress any other key to exit");
-        String c = Atm.scanner.nextLine();
-        if (c.contentEquals("y")) {
-            createAccount();
-        } else {
-            System.out.println("End of transaction");
-            inputName();
-        }
-    }
+    public void processOptions() {
+        while (true) {
+            System.out.println("\nTo create an account press (1)" +
+                    "\nTo remove account press (2)" + "\nTo check balance press (3)" + "\nTo withdraw cash press (4)" +
+                    "\nTo cancel press (5)");
 
-    public void chooseOption() {
-        System.out.println("\nTo create an account press (1)" +
-                "\nTo remove account press (2)" + "\nTo check balance press (3)" + "\nTo withdraw cash press (4)" +
-                "\nTo deposit Cash press (5)" + "\nTo cancel press (6)");
+            int selectedInput = Atm.scanner.nextInt();
 
-        int selectedInput = Atm.scanner.nextInt();
-
-        switch (selectedInput) {
-            case 1:
-                selectedInput = 1;
+            if (selectedInput == 1) {
                 createAccount();
+            } else if (selectedInput == 2) {
+                removeAccount();
+            } else if (selectedInput == 3) {
+                System.out.printf("Balance = $%.2f\n", accounts.get(name));
+            } else if (selectedInput == 4) {
+                withdrawMoney();
+            } else {
                 break;
-            case 2:
-                selectedInput = 2;
-                if (accounts.containsKey(name)) {
-                    removeAccount();
-                } else {
-                    System.out.println("You do not have an account. To open an account press the 'y' key.");
-                    String y = Atm.scanner.nextLine();
-                    createAccount();
-                }
-                break;
-            case 3:
-                selectedInput = 3;
-                if (accounts.containsKey(name)) {
-                    System.out.printf("Balance = $%.2f\n", accounts.get(name));
-                } else {
-                    System.out.println("You do not have an account. To open an account press the 'y' key.");
-                    String y = Atm.scanner.nextLine();
-                    createAccount();
-                }
-                break;
-            case 4://withdraw money
-                selectedInput = 4;
-                if (accounts.containsKey(name)) {
-                    withdrawMoney();
-                } else {
-                    System.out.println("You do not have an account. To open an account press the 'y' key.");
-                    String y = Atm.scanner.nextLine();
-                    createAccount();
-                }
-                break;
-            case 5:
-                selectedInput = 5;
-                if (accounts.containsKey(name)) {
-                    makeDeposit();
-                } else {
-                    System.out.println("You do not have an account. To open an account press the 'y' key.");
-                    String y = Atm.scanner.nextLine();
-                    createAccount();
-                }
-                break;
-            case 6:
-                selectedInput = 6;
-                System.out.println("Thank you come again.");
-                break;
+            }
         }
-
     }
 
-    // Creates an account regardless of existing account. Will always ask for name and amount to deposit.
-    private void createAccount() {
-        System.out.println("Please enter a name to create an account.");
-        String newAcctName = Atm.scanner.nextLine();
-        System.out.println("Please enter the amount to open the account with.");
+    public void createAccount() {
+//        String newAcctName = Atm.scanner.nextLine();
+        System.out.println("Please enter the amount to deposit.");
         Double newAcctDeposit = Atm.scanner.nextDouble();
-        accounts.putIfAbsent(newAcctName, newAcctDeposit);
-        System.out.println("Now that you have created an account what would you like to do next?");
+        accounts.put(name, newAcctDeposit);
     }
 
     public void removeAccount() {
@@ -117,14 +65,6 @@ public class Atm {
     public void checkBalance() {
         Double balance = accounts.get(name);
         System.out.println("Your balance is" + name);
-        chooseOption();
-    }
-
-    //adds money to existing account
-    public void makeDeposit() {
-        System.out.println("Please enter the amount to deposit.");
-        deposit = Atm.scanner.nextDouble();
-        accounts.put(name, deposit);
     }
 
     public void withdrawMoney() {
