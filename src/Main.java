@@ -8,6 +8,7 @@ public class Main {
         atm.loadAccount();// loads the preexisting hashmap values
         atm.inputName(); // prompts for name and stores it for validating
         atm.isAccountFoundAndValid();//validates name
+
         if(atm.isAccountFoundAndValid()){
             atm.chooseOption();
         }
@@ -15,26 +16,12 @@ public class Main {
             atm.openFirstAccount();
         }
 
-
-
-
-
         //if (atm.isAccountFoundAndValid();
         // if val
         //   process act
         // else offer create new
         // if created
         //   process act
-
-
-
-
-
-
-
-
-
-
     }
 
 }
