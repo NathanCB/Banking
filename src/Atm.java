@@ -13,7 +13,6 @@ public class Atm {
 
     static Scanner scanner = new Scanner(System.in);
     static Scanner scanForString = new Scanner(System.in);
-//    static Scanner scanForDouble = new Scanner(System.in);
 
     public void inputName() {
         System.out.println("Enter Your name: ");
@@ -23,10 +22,6 @@ public class Atm {
             name = Atm.scanner.nextLine();
         }
         System.out.println("Hi " + name);
-    }
-
-    public boolean isAccountValid() {
-        return accounts.containsKey(name);
     }
 
     public void processOptions() {
@@ -52,7 +47,6 @@ public class Atm {
     }
 
     public void createAccount() {
-//        String newAcctName = Atm.scanner.nextLine();
         System.out.println("Please enter the amount to deposit.");
         Double newAcctDeposit = Atm.scanner.nextDouble();
         accounts.put(name, newAcctDeposit);
@@ -60,11 +54,6 @@ public class Atm {
 
     public void removeAccount() {
         accounts.remove(name);
-    }
-
-    public void checkBalance() {
-        Double balance = accounts.get(name);
-        System.out.println("Your balance is" + name);
     }
 
     public void withdrawMoney() {
@@ -80,6 +69,4 @@ public class Atm {
             System.out.println("You need to have more than 100 in your account to withdraw money.");
         }
     }
-
-
 }

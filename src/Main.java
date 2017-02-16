@@ -9,7 +9,7 @@ public class Main {
 
         while (true) {
             atm.inputName();
-            // Loop thru 3 options
+            // Loop thru menu options
             atm.processOptions();
         }
     }
